@@ -9,6 +9,10 @@ DEBUG = os.environ.get("RENDER") != "true"
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://buspass-system-production.up.railway.app',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
