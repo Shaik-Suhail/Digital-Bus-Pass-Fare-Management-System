@@ -1,6 +1,11 @@
 
 ## 📘 Digital Bus Pass & Fare Management System
 
+🌐 Live Project Link
+
+🚀 Hosted on Railway:
+https://buspass-system-production.up.railway.app/
+
 This is a web-based Django project designed to streamline the issuance, renewal, and management of bus passes for students and passengers, reducing long queues, paperwork, and manual processing.
 
 ---
