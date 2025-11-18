@@ -3,14 +3,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load secret key from Railway environment
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-key")
+SECRET_KEY = os.environ.get("SECRET_KEY", "your-secret-key")
 
-# Railway sets ENV "RAILWAY_ENVIRONMENT"
-DEBUG = os.environ.get("RAILWAY_ENVIRONMENT") != "production"
+DEBUG = os.environ.get("RENDER") != "true"
 
 ALLOWED_HOSTS = ["*"]
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -25,7 +22,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',    # required for Railway
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,15 +51,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'buspassmangment.wsgi.application'
 
-
-# DATABASE (SQLite is OK for Railway free tier)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -76,23 +70,14 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = False
 
-
-# ------------------------------------------------------------------
-# STATIC FILES (WhiteNoise for Railway)
-# ------------------------------------------------------------------
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-
-# MEDIA FILES
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
-# EMAIL SETTINGS (Railway Environment Variables)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
